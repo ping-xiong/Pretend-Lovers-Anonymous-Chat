@@ -19,9 +19,11 @@ use \GatewayWorker\Gateway;
 use \GatewayWorker\BusinessWorker;
 use \Workerman\Autoloader;
 
+
 // 自动加载类
 //require_once base_path('vendor/autoload.php');
 require_once __DIR__ .'/../../../vendor/autoload.php';
+$config = require_once __DIR__ .'/../../../config/chatServer.php';
 
 // bussinessWorker 进程
 $worker = new BusinessWorker();
@@ -30,7 +32,9 @@ $worker->name = 'chatBusinessWorker';
 // bussinessWorker进程数量
 $worker->count = 1;
 // 服务注册地址
-$worker->registerAddress = '127.0.0.1:1238';
+//$worker->registerAddress = '127.0.0.1:1238';
+$worker->registerAddress = $config['server']['Register'];
+
 
 $worker->eventHandler = \App\Workerman\Events::class;
 
