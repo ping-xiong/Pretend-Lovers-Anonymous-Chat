@@ -10,7 +10,7 @@
 6. 支持emoji
 7. 后台管理
 
-##技术依赖
+## 技术依赖
 1. Laravel 5.7  
 2. PHP 7.0 以上  
 3. Workerman  
