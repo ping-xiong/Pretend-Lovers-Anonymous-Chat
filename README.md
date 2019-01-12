@@ -15,6 +15,7 @@
 2. PHP 7.0 以上  
 3. Workerman  
 4. Vue
+5. Redis
 
 ## 安装教程
 TODO
