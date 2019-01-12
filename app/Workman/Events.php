@@ -13,6 +13,8 @@ class Events
 {
     public static function onWorkerStart($businessWorker){
 
+        echo '服务器启动成功';
+
     }
 
     public static function onConnect($client_id){

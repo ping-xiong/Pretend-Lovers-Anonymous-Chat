@@ -106,7 +106,7 @@ class chatServer extends Command
         $command = 'php '.app_path('Workman\forWin\start_register.php').' '.app_path('Workman\forWin\start_gateway.php').' '.app_path('Workman\forWin\start_businessworker.php');
 //        echo $command;
 //        exec($command, $output);
-
+        // 执行Windows系统命令
         passthru($command, $output);
 
         var_dump($output);

@@ -28,9 +28,11 @@ $worker = new BusinessWorker();
 // worker名称
 $worker->name = 'chatBusinessWorker';
 // bussinessWorker进程数量
-$worker->count = 4;
+$worker->count = 1;
 // 服务注册地址
 $worker->registerAddress = '127.0.0.1:1238';
+
+$worker->eventHandler = \App\Workerman\Events::class;
 
 // 如果不是在根目录启动，则运行runAll方法
 if(!defined('GLOBAL_START'))
