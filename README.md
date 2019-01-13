@@ -20,5 +20,13 @@
 ## 安装教程
 TODO
 
+## 软件依赖下载
+
+### Redis
+必备，用于匿名聊天的匹配队列。  
+Windows: https://github.com/tporadowski/redis/releases  
+Linux: http://www.redis.cn/download.html  
+
+
 ## 技术博客
 https://pingxonline.com

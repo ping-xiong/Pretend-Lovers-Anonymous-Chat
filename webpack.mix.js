@@ -11,5 +11,14 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.webpackConfig({
+    externals: {
+        'vue': 'Vue',
+        'element-ui': 'ELEMENT',
+    }
+});
+
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
+
+

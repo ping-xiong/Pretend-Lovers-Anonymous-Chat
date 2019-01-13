@@ -11,6 +11,20 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+// 后台
+// 登录
+Route::get('login', function (){
+    return view('login');
+})->name('login');
+
+// 登录接口
+Route::post('login/auth', 'login\loginController@auth');
+
+Route::get('admin', function (){
+    return view('admin');
+})->middleware('login');
