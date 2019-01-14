@@ -38,6 +38,46 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+// 创建一个错误
+function errorCreat (msg) {
+    throw new Error(msg)
+}
+
+import { Message } from 'element-ui';
+
+// 响应拦截器
+window.axios.interceptors.response.use(
+    response => {
+        if (undefined != typeof response.data.code){
+            switch (response.data.code) {
+                case 0:
+                    return response.data;
+                    break;
+                case -1:
+                    console.log('请求错误：'+response.data.msg);
+                    Message.error(response.data.msg);
+                    errorCreat(response.data.msg);
+                    break;
+                default:
+                    return response.data;
+            }
+        }else{
+            return response.data;
+        }
+    },
+    error => {
+        if (error.response) {
+            switch (error.response.code) {
+                case 401:
+                    // 返回 401 清除token信息并跳转到登录页面
+                    window.location.href = 'login';
+            }
+        }
+        return Promise.reject(error.response.data)   // 返回接口返回的错误信息
+    });
+
+
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

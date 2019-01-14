@@ -1817,6 +1817,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+// import { Message } from 'element-ui';
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "login",
   data: function data() {
@@ -1827,16 +1828,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     login: function login() {
-      axios.post('/login/auth', {
+      var _this = this;
+
+      window.axios.post('/login/auth', {
         username: this.username,
         password: this.password
       }).then(function (response) {
-        console.log(response);
-      }).catch(function (error) {
-        console.log(error);
-      });
+        if (response.code === 0) {
+          _this.$message.success(response.msg);
+
+          window.location.href = 'admin';
+        } else {
+          _this.$message.warning(response.msg);
+        }
+      }).catch(function (err) {});
     }
-  }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -37147,7 +37155,7 @@ var render = function() {
           _c(
             "el-input",
             {
-              attrs: { placeholder: "请输入密码" },
+              attrs: { placeholder: "请输入密码", type: "password" },
               model: {
                 value: _vm.password,
                 callback: function($$v) {
@@ -37358,9 +37366,13 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var element_ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! element-ui */ "element-ui");
+/* harmony import */ var element_ui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(element_ui__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -37369,6 +37381,7 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "vue");
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -37381,6 +37394,7 @@ window.Vue = __webpack_require__(/*! vue */ "vue");
 
 Vue.component('admin', __webpack_require__(/*! ./components/admin.vue */ "./resources/js/components/admin.vue").default);
 Vue.component('login', __webpack_require__(/*! ./components/login.vue */ "./resources/js/components/login.vue").default);
+Vue.prototype.$message = element_ui__WEBPACK_IMPORTED_MODULE_0__["Message"];
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -37397,8 +37411,14 @@ var app = new Vue({
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
   \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var element_ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! element-ui */ "element-ui");
+/* harmony import */ var element_ui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(element_ui__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
@@ -37434,7 +37454,45 @@ if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+} // 创建一个错误
+
+
+function errorCreat(msg) {
+  throw new Error(msg);
 }
+
+ // 响应拦截器
+
+window.axios.interceptors.response.use(function (response) {
+  if (undefined != _typeof(response.data.code)) {
+    switch (response.data.code) {
+      case 0:
+        return response.data;
+        break;
+
+      case -1:
+        console.log('请求错误：' + response.data.msg);
+        element_ui__WEBPACK_IMPORTED_MODULE_0__["Message"].error(response.data.msg);
+        errorCreat(response.data.msg);
+        break;
+
+      default:
+        return response.data;
+    }
+  } else {
+    return response.data;
+  }
+}, function (error) {
+  if (error.response) {
+    switch (error.response.code) {
+      case 401:
+        // 返回 401 清除token信息并跳转到登录页面
+        window.location.href = 'login';
+    }
+  }
+
+  return Promise.reject(error.response.data); // 返回接口返回的错误信息
+});
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -37628,6 +37686,17 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! F:\gitee\Pretend-Lovers-Anonymous-Chat\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! F:\gitee\Pretend-Lovers-Anonymous-Chat\resources\sass\app.scss */"./resources/sass/app.scss");
 
+
+/***/ }),
+
+/***/ "element-ui":
+/*!**************************!*\
+  !*** external "ELEMENT" ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ELEMENT;
 
 /***/ }),
 

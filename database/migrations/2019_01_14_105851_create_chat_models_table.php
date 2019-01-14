@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdminsTable extends Migration
+class CreateChatModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateAdminsTable extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('chat_models', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->comment('昵称');
-            $table->string('username')->comment('登录账号');
-            $table->string('password')->comment('密码');
+            $table->unsignedInteger('user_id')->nullable()->comment('用户ID，有登录的时候用到');
+            $table->string('room_id')->comment('房间号，系统自动分配');
+            $table->string('msg')->comment('发送的消息');
             $table->timestamps();
 
             $table->engine = 'InnoDB';
+            $table->charset = 'utf8mb4';
         });
     }
 
@@ -31,6 +32,6 @@ class CreateAdminsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('chat_models');
     }
 }

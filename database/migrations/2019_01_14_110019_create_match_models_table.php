@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdminsTable extends Migration
+class CreateMatchModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateAdminsTable extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('match_models', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->comment('昵称');
-            $table->string('username')->comment('登录账号');
-            $table->string('password')->comment('密码');
+
+            $table->unsignedInteger('user_id')->nullable()->comment('用户ID，开启登录就用到');
+            $table->string('ip')->comment('连接的IP');
+            $table->string('gender')->comment('性别');
+
             $table->timestamps();
 
             $table->engine = 'InnoDB';
@@ -31,6 +33,6 @@ class CreateAdminsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('match_models');
     }
 }

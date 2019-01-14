@@ -9,6 +9,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import { Message } from 'element-ui';
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -22,6 +24,9 @@ window.Vue = require('vue');
 
 Vue.component('admin', require('./components/admin.vue').default);
 Vue.component('login', require('./components/login.vue').default);
+
+Vue.prototype.$message = Message;
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

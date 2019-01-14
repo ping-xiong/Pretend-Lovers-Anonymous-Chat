@@ -10,7 +10,7 @@
         </div>
 
         <div style="margin-bottom: 20px">
-            <el-input placeholder="请输入密码" v-model="password">
+            <el-input placeholder="请输入密码" type="password" v-model="password">
                 <template slot="prepend">密码</template>
             </el-input>
         </div>
@@ -20,6 +20,9 @@
 </template>
 
 <script>
+
+    // import { Message } from 'element-ui';
+
     export default {
         name: "login",
         data(){
@@ -30,17 +33,26 @@
         },
         methods: {
             login: function () {
-                axios.post('/login/auth', {
+                window.axios.post('/login/auth', {
                     username: this.username,
                     password: this.password
                 })
-                    .then(function (response) {
-                        console.log(response);
+                    .then(response => {
+
+                        if (response.code === 0){
+                            this.$message.success(response.msg);
+                            window.location.href = 'admin';
+                        } else{
+                            this.$message.warning(response.msg);
+                        }
                     })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                    .catch(err =>{
+
+                })
             }
+        },
+        mounted() {
+
         }
     }
 </script>
