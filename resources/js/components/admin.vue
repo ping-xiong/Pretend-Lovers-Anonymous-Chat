@@ -1,23 +1,42 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">Example Component</div>
+        <el-tabs type="border-card" stretch="true">
+            <el-tab-pane label="服务管理">
+                <server-management></server-management>
+            </el-tab-pane>
+            <el-tab-pane label="状态管理">
 
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div>
+            </el-tab-pane>
+            <el-tab-pane label="房间管理">
+
+            </el-tab-pane>
+            <el-tab-pane label="情头管理">
+
+            </el-tab-pane>
+            <el-tab-pane label="话题管理">
+
+            </el-tab-pane>
+        </el-tabs>
     </div>
 </template>
 
 <script>
+
+    import serverManagement from './adminComponents/serverManagement.vue'
+
     export default {
+        components:{
+            serverManagement
+        },
         mounted() {
-            console.log('Component mounted.')
+
         }
     }
 </script>
+
+<style>
+    body, html{
+        margin: 0;
+        padding: 0;
+    }
+</style>

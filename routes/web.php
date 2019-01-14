@@ -25,6 +25,22 @@ Route::get('login', function (){
 // 登录接口
 Route::post('login/auth', 'login\loginController@auth');
 
-Route::get('admin', function (){
-    return view('admin');
-})->middleware('login');
+
+Route::group(['middleware' => ['login']], function () {
+    //
+
+    Route::get('admin', function (){
+        return view('admin');
+    });
+
+    // 服务器开启
+    Route::get('server/open', 'server\serverController@open');
+    // 服务器关闭
+    Route::get('server/close', 'server\serverController@close');
+});
+
+
+
+
+
+

@@ -16,7 +16,7 @@ class chatServer extends Command
      *
      * @var string
      */
-    protected $signature = 'workman {action} {--d}';
+    protected $signature = 'workman {action} {--d} {--queue}';
 
     /**
      * The console command description.
@@ -110,5 +110,7 @@ class chatServer extends Command
         passthru($command, $output);
 
         var_dump($output);
+
+        this.info($output);
     }
 }
