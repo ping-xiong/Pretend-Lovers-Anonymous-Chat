@@ -17,6 +17,7 @@
 5. 支持发送图片
 6. 支持emoji
 7. 后台管理
+8. 支持Linux和Windows双平台
 
 ## 技术依赖
 1. Laravel 5.7  
