@@ -1,5 +1,5 @@
 <template>
-    <el-card class="center">
+    <el-card class="center" style="margin-top: 30px">
         <div slot="header" class="clearfix">
             <span>匿名聊天室后台登录</span>
         </div>
@@ -33,6 +33,14 @@
         },
         methods: {
             login: function () {
+
+                const loading =this.$loading({
+                    lock: true,
+                    text: '登录中...',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.7)'
+                });
+
                 window.axios.post('/login/auth', {
                     username: this.username,
                     password: this.password
@@ -48,7 +56,10 @@
                     })
                     .catch(err =>{
 
-                })
+                    })
+                    .finally(() => {
+                        loading.close()
+                    })
             }
         },
         mounted() {
