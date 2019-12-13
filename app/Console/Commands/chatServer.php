@@ -47,10 +47,10 @@ class chatServer extends Command
 
         $agent = new Agent();
         if ($agent->isDesktop('Windows')){
-            echo "run on windows";
+//            echo "run on windows";
             $this->runOnWindows();
         }else{
-            echo "run on Linux";
+//            echo "run on Linux";
             global $argv;
             $action = $this->argument('action');
 
@@ -101,16 +101,7 @@ class chatServer extends Command
 
     // Windows run
     private function runOnWindows(){
-        $output = '';
-//        echo app_path('Workman\forWin\start_for_win.bat');
-        $command = 'php '.app_path('Workman\forWin\start_register.php').' '.app_path('Workman\forWin\start_gateway.php').' '.app_path('Workman\forWin\start_businessworker.php');
-//        echo $command;
-//        exec($command, $output);
-        // 执行Windows系统命令
-        passthru($command, $output);
-
-        var_dump($output);
-
-        this.info($output);
+        // Windows守护进程模式运行需要安装服务
+        // 为了兼容Windows 和 Linux平台，Windows需要手动启动聊天服务
     }
 }
